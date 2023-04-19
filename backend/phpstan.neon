@@ -11,7 +11,13 @@ parameters:
     checkMissingIterableValueType: false
     checkMissingCallableSignature: true
 
-    # ignoreErrors:
+    ignoreErrors:
+        -
+            # We're ignoring this only for 3rd party code - Laravel
+            # In cause of our code rule is still viable and should be respected
+            message: '#Construct empty\(\) is not allowed#'
+            paths:
+                - app\Http\Middleware\RedirectIfAuthenticated.php
     #     -
     #         # Pest Higher Order Expectations
     #         message: '#Access to an undefined property Pest\\Expectation#'
