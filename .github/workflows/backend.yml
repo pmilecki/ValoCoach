@@ -1,0 +1,80 @@
+name: Backend
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    defaults:
+      run:
+        working-directory: backend
+    name: Backend
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      mysql-service:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          MYSQL_DATABASE: backend
+        ports:
+          - 33306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: imagick, iconv
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('backend/composer.lock') }}
+          restore-keys: |
+            composer-${{ hashFiles('backend/composer.lock') }}
+            composer-
+
+      - name: Install dependencies
+        run: composer install -n --prefer-dist
+        env:
+          APP_ENV: testing
+
+      - name: Prepare Laravel
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - name: PHPStan
+        run: composer run-script lint
+
+      - name: Pint
+        run: composer run-script pint
+
+      - name: Run tests
+        run: ./vendor/bin/pest --stop-on-error
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        if: failure()
+        with:
+          name: Logs
+          path: ./backend/storage/logs

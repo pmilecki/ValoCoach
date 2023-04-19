@@ -1,0 +1,47 @@
+name: Frontend
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  frontend:
+    defaults:
+      run:
+        working-directory: frontend
+    name: Frontend
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Cache node_modules
+        uses: actions/cache@v1
+        with:
+          path: './frontend/node_modules'
+          key: yarn-${{ hashFiles('frontend/yarn.lock') }}
+          restore-keys: |
+            yarn-${{ hashFiles('frontend/yarn.lock') }}
+            yarn-
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: ESLint
+        run: yarn lint
+
+      - name: Build
+        run: yarn build
