@@ -21,15 +21,15 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '18'
 
       - name: Cache node_modules
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: './frontend/node_modules'
           key: yarn-${{ hashFiles('frontend/yarn.lock') }}
@@ -39,6 +39,9 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
+
+      - name: Generate nuxt
+        run: yarn generate
 
       - name: ESLint
         run: yarn lint

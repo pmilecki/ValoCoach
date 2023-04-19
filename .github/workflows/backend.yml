@@ -34,7 +34,7 @@ jobs:
           --health-retries=3
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -43,7 +43,7 @@ jobs:
           extensions: imagick, iconv
 
       - name: Cache composer dependencies
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: vendor
           key: composer-${{ hashFiles('backend/composer.lock') }}
