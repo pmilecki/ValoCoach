@@ -1,0 +1,19 @@
+parameters:
+    level: 6
+
+    paths:
+        - app
+        - config
+        - database
+        - routes
+        - tests
+
+    checkMissingIterableValueType: false
+    checkMissingCallableSignature: true
+
+    # ignoreErrors:
+    #     -
+    #         # Pest Higher Order Expectations
+    #         message: '#Access to an undefined property Pest\\Expectation#'
+    #         path: tests
+            
