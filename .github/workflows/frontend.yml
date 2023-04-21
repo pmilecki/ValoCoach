@@ -40,9 +40,6 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Generate nuxt
-        run: yarn generate
-
       - name: ESLint
         run: yarn lint
 
