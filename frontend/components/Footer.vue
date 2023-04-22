@@ -8,9 +8,8 @@
   .footer{
     position: fixed;
     bottom: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding: 0px 16px;
-    background-color: rgb(15, 15, 15);
+    padding: 16px;
+    border-top: 6px solid rgb(15, 15, 15);
     width: 100%;
   }
 

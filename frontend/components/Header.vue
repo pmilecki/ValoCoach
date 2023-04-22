@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <h1>ValoCoach</h1>
+    <img src="~/public/VC.png" class="max-h-16">
     <PlayerSearch />
   </div>
 </template>
@@ -9,8 +9,13 @@
   .header{
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
-    margin: 0px 16px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    align-items: center;
+    padding: 16px;
+    background-color: black;
+    border-bottom: 6px solid rgb(15, 15, 15);
+  }
+
+  h1{
+    color: #FD4556;
   }
 </style>

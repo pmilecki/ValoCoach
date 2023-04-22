@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <div class="content">
+  <div class="content max-h-screen">
     <h1>Halo Valo</h1>
   </div>
   <Footer />
@@ -13,13 +13,13 @@
 <style>
 body{
   margin: auto;
+  background-color: black;
 }
 .content {
-  background-color: black;
   margin: 0;
-  color: red;
+  color: #FD4556;
   padding: 10rem;
   font-size: 3rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
 }
 </style>
