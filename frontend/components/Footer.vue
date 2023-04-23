@@ -5,15 +5,16 @@
 </template>
 
 <style scoped>
-  .footer{
-    position: fixed;
-    bottom: 0;
-    padding: 16px;
-    border-top: 6px solid rgb(15, 15, 15);
-    width: 100%;
-  }
+.footer {
+  position: fixed;
+  bottom: 0;
+  padding: 16px;
+  border-top: 6px solid rgb(15, 15, 15);
+  width: 100%;
+}
 
-  .footer a {
-    color: #FD4556;
-  }
+.footer a {
+  color: #fd4556;
+  background-color: black;
+}
 </style>
