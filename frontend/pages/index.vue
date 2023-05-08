@@ -1,3 +1,3 @@
 <template>
-  <h3>Halo dupa</h3>
+  <h3>Halo halo</h3>
 </template>

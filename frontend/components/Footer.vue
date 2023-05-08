@@ -11,6 +11,7 @@
   padding: 16px;
   border-top: 6px solid rgb(15, 15, 15);
   width: 100%;
+  background: black;
 }
 
 .footer a {

@@ -1,42 +1,47 @@
 {
-  "extends":[
+  "extends": [
     "@nuxtjs/eslint-config-typescript",
-    "eslint:recommended",
-    "plugin:vue/vue3-recommended",
-    "plugin:prettier-vue/recommended"
+    "plugin:prettier-vue/recommended",
+    "plugin:tailwindcss/recommended",
+    "plugin:vue/vue3-recommended"
   ],
-  "parser":"vue-eslint-parser",
-  "parserOptions":{
-    "parser":"@typescript-eslint/parser"
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser"
   },
-  "settings":{
-    "prettier-vue":{
-      "SFCBlocks":{
-        "template":false,
-        "script":true,
-        "style":true
+  "settings": {
+    "prettier-vue": {
+      "SFCBlocks": {
+        "template": false,
+        "script": true,
+        "style": true
       }
-    },
-    "rules":{
-      "vue/first-attribute-linebreak":[
-        "error",
-        {
-          "singleline":"beside",
-          "multiline":"beside"
-        }
-      ],
-      "vue/html-closing-bracket-newline":[
-        "error",
-        {
-          "singleline":"never",
-          "multiline":"never"
-        }
-      ],
-      "vue/max-attributes-per-line":[
-        "error"
-      ],
-      "vue/multi-word-component-names":"off",
-      "vue/no-multiple-template-root":"off"
     }
+  },
+  "rules": {
+    "tailwindcss/no-custom-classname": "off",
+    "vue/first-attribute-linebreak": [
+      "error",
+      {
+        "singleline": "beside",
+        "multiline": "beside"
+      }
+    ],
+    "vue/html-closing-bracket-newline": [
+      "error",
+      {
+        "singleline": "never",
+        "multiline": "never"
+      }
+    ],
+    "vue/max-attributes-per-line": [
+      "error"
+    ],
+    "vue/multi-word-component-names": "off",
+    "vue/no-multiple-template-root": "off",
+    "vue/padding-line-between-blocks": "error",
+    "vue/padding-line-between-tags": ["error", [
+      { "blankLine": "always", "prev": "*", "next": "*" }
+    ]
   }
 }
