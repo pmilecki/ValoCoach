@@ -1,30 +1,83 @@
 <template>
   <h3>Halo player</h3>
-  <div>
-    <!-- {{ key }}: {{ item}} -->
-    {{ matches.data[0].players.all_players[1].name }}#{{ matches.data[0].players.all_players[1].tag }}
-    {{ matches.data[0].players.all_players[1].currenttier_patched }}
+
+  <div v-for="(match, index) in matches.playerData" class="bg-tertiary history text-xl">
     <div>
-      {{ matches.data[0].players.all_players[1].stats.kills }}/{{ matches.data[0].players.all_players[1].stats.deaths }}/{{ matches.data[0].players.all_players[1].stats.assists }}
-      <img :src="matches.data[0].players.all_players[1].assets.agent.small" />
+      <img :src="match.assets.agent.small" style="width: 128px; height: 128px;">
     </div>
-    <br />
-    <!-- {{ matches.data[0].players.all_players[1] }} -->
-    
+
+    <div class="stats">
+      <div class="stat">
+        <div>
+          K/D/A
+        </div>
+
+        <div>
+          {{ match.stats.kills }}/{{ match.stats.deaths }}/{{ match.stats.assists }}
+        </div>
+      </div>
+
+      <div class="stat">
+        <div>
+          ACS
+        </div>
+
+        <div>
+          {{ (parseInt(match.stats.score) / parseInt(matches.numOfRounds[index])).toFixed(0) }}
+        </div>
+      </div>
+
+      <div class="stat">
+        <div>
+          ADR
+        </div>
+
+        <div>
+          {{ (matches.damagePerRound[index]).toFixed(0) }}
+        </div>
+      </div>
+
+      <div class="stat">
+        <div>
+          HS%
+        </div>
+
+        <div>
+          {{ ((match.stats.headshots / (match.stats.headshots + match.stats.bodyshots + match.stats.legshots))*100).toFixed(0) }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 const route = useRoute()
 // When accessing /posts/1, route.params.id will be 1
-console.log(route.params.id)
+// console.log(route.params.id)
 
-const { data: matches, error } = await useAsyncData(
-  'matches',
-  () => $fetch('https://api.henrikdev.xyz/valorant/v3/matches/eu/Banzaii/Rose?filter=competitive')
-  // () => $fetch('https://api.henrikdev.xyz/valorant/v1/leaderboard/eu')
-)
+const { data: matches, error } = await useAsyncData('matches', () => $fetch('http://localhost/valo'))
 
-//console.log(matches.value.data[0].players.all_players[1].stats)
-//console.log(error)
+console.log(matches)
 </script>
+
+<style>
+.history {
+  margin: 8px 0px;
+  padding: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stats {
+  display: flex;
+  flex-direction: row;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-left: 16px;
+}
+</style>
