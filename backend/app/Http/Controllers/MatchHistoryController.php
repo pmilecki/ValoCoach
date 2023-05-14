@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
+use phpDocumentor\Reflection\PseudoTypes\LowercaseString;
 
 class MatchHistoryController extends Controller
 {
@@ -15,20 +17,28 @@ class MatchHistoryController extends Controller
 
       	$numOfRounds = $data->map(fn (array $match) => count($match['rounds']));
 
-        $playerData = $data
-            ->map(function (array $item) {
-                return collect($item['players']['all_players'])->first(fn (array $player) => $player['name'] === 'Banzaii' && $player['tag'] === 'ROSE');
-            })
-            ->map(fn (array $player) => collect($player)->only(['stats', 'damage_made', 'assets']));
+        $statsData = $data
+            ->map(function (array $match) {
+                $playerData = collect($match['players']['all_players'])
+                    ->first(fn (array $player) => $player['name'] === 'Banzaii' && $player['tag'] === 'ROSE');
 
-      	$damagePerRound = $numOfRounds->zip($playerData)
+                return [
+                    'matchId' => $match['metadata']['matchid'],
+                    'playerData' => collect($playerData)->only([
+                        'currenttier_patched', 'stats', 'damage_made', 'assets', 'team', 'name'
+                    ]),
+                    'score' => $match['teams'][Str::lower($playerData['team'])]
+                ];
+            });
+
+      	$damagePerRound = $numOfRounds->zip($statsData)
           ->map(function ($zippedData) {
-            return $zippedData[1]['damage_made'] / $zippedData[0];
+            return $zippedData[1]['playerData']['damage_made'] / $zippedData[0];
           });
 
       	$response = [
           'numOfRounds' => $numOfRounds,
-          'playerData'  => $playerData,
+          'statsData'  => $statsData,
           'damagePerRound' => $damagePerRound
         ];
 

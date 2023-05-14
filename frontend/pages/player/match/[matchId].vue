@@ -1,0 +1,3 @@
+<template>
+  Match stats
+</template>
