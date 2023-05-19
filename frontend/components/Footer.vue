@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <h5><a href="https://github.com/pmilecki/ValoCoach" class="text-primary">@pmilecki</a></h5>
+    <h5><a href="https://github.com/pmilecki/ValoCoach" class="text-primaryRed">@pmilecki</a></h5>
   </div>
 </template>
 
@@ -15,7 +15,6 @@
 }
 
 .footer a {
-  /* color: #fd4556; */
   background-color: black;
 }
 </style>

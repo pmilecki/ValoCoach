@@ -3,7 +3,7 @@
 
   <div class="flex flex-col flex-wrap content-center">
     <!-- <nuxt-link :to="`/player/${playerId}/${matchId}`"></nuxt-link> -->
-    <div v-for="(match, index) in matches.statsData" :id="match.matchId" :key="index" class="bg-tertiary history hover:bg-primary w-8/12 max-w-7xl text-xl transition duration-150 ease-in-out hover:scale-110" :class="{ won: match.score.has_won, lost: !match.score.has_won }">
+    <div v-for="(match, index) in matches.statsData" :id="match.matchId" :key="index" class="bg-tertiaryRed history hover:bg-primary w-8/12 max-w-7xl text-xl transition duration-150 ease-in-out hover:scale-110" :class="{ won: match.score.has_won, lost: !match.score.has_won }">
       <figure>
         <img :src="match.playerData.assets.agent.small" style="width: 128px; height: 128px;">
       </figure>
@@ -62,14 +62,24 @@
 </template>
 
 <script setup lang="ts">
-import { GetMatchesResponse } from '../../model/responses/GetMatchesResponse'
+import { GetMatchesResponse } from '~/model/responses/GetMatchesResponse'
 
-// const route = useRoute()
+const route = useRoute()
 // When accessing /posts/1, route.params.id will be 1
 // console.log(route.params.id)
 
 const { data } = await useAsyncData<GetMatchesResponse>('matches', () =>
-  $fetch('http://localhost/valo/eu/Banzaii/Rose/competitive')
+  $fetch(
+    'http://localhost/valo/' +
+      route.params.region +
+      '/' +
+      route.params.name +
+      '/' +
+      route.params.tag +
+      '/' +
+      route.params.queue +
+      '/'
+  )
 )
 
 const matches = computed((): GetMatchesResponse => {

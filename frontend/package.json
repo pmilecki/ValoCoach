@@ -1,10 +1,9 @@
 {
-  "type": "module",
   "name": "nuxt-app",
   "private": true,
   "scripts": {
-    "build": "node_modules/.bin/nuxt build",
-    "dev": "node_modules/.bin/nuxt dev",
+    "build": "nuxt build",
+    "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -34,7 +33,9 @@
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.6.6",
     "node-fetch": "^2.6.7",
-    "nuxt": "^3.4.1"
+    "nuxt": "^3.4.1",
+    "sass": "^1.51.0",
+    "vuetify": "^3.3.0"
   },
   "packageManager": "yarn@3.5.0"
 }

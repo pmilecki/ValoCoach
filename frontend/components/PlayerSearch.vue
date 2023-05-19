@@ -1,16 +1,16 @@
 <template>
   <div class="userSearch">
-    <form>
-      <input id="nick" type="text" placeholder="Nickname" class="rounded-md" required="true">
+    <v-form>
+      <input id="nick" type="text" placeholder="Nickname" class="bg-primaryRed rounded-md" required="true">
 
       <input id="tag"
              type="text"
              placeholder="Tag text"
-             class="rounded-md"
+             class="bg-primaryRed rounded-md"
              maxlength="5"
              required="true">
 
-      <select id="server" class="rounded-md" required="true">
+      <select id="server" class="bg-primaryRed rounded-md" required="true">
         <option value="EMEA">
           EMEA
         </option>
@@ -20,14 +20,14 @@
         </option>
       </select>
 
-      <select id="queueType" class="rounded-md" required="true">
+      <select id="queueType" class="bg-primaryRed rounded-md" required="true">
         <option value="competitive">
           Competetive
         </option>
       </select>
 
       <input type="submit" value="Search">
-    </form>
+    </v-form>
   </div>
 </template>
 
@@ -36,9 +36,7 @@ input {
   margin-left: 8px;
   text-align: center;
 }
-input[type='submit'] {
-  color: white;
-}
+
 select {
   margin-left: 8px;
   text-align: center;
