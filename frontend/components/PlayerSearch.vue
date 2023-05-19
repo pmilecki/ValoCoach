@@ -21,7 +21,7 @@
       </select>
 
       <select id="queueType" class="rounded-md" required="true">
-        <option value="competetive">
+        <option value="competitive">
           Competetive
         </option>
       </select>

@@ -22,4 +22,4 @@ Route::get('/', function () {
 //     return Http::get('https://api.henrikdev.xyz/valorant/v3/matches/eu/Banzaii/Rose?filter=competitive')['data'][0]['players']['all_players']['name' => 'Banzaii'];
 // });
 
-Route::get('valo', MatchHistoryController::class);
+Route::get('valo/{server}/{playerName}/{playerTag}/{queue}', [MatchHistoryController::class, '__invoke']);
