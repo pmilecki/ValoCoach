@@ -11,6 +11,7 @@
     "husky:install": "cd .. && husky install frontend/.husky"
   },
   "devDependencies": {
+    "@nuxt/devtools": "^0.5.5",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@types/eslint": "^8",
     "@types/node": "^18",

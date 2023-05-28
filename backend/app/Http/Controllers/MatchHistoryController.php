@@ -4,17 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use phpDocumentor\Reflection\PseudoTypes\LowercaseString;
 use function sprintf;
 
 class MatchHistoryController extends Controller
 {
     public function __invoke(string $server, string $playerName, string $playerTag, string $queue)
     {
-        //$apiResponse = Http::get('https://api.henrikdev.xyz/valorant/v3/matches/eu/Banzaii/Rose?filter=competitive');
         $apiAdress = 'https://api.henrikdev.xyz/valorant/v3/matches/%s/%s/%s?filter=%s';
-
-        //$apiResponseAdress = $apiAdress.$server."/".$playerName."/".$playerTag."?filter=".$queue;
         $apiResponseAdress = sprintf($apiAdress, $server, $playerName, $playerTag, $queue);
         $apiResponse = Http::get($apiResponseAdress);
 
@@ -31,7 +27,7 @@ class MatchHistoryController extends Controller
                 return [
                     'matchId' => $match['metadata']['matchid'],
                     'playerData' => collect($playerData)->only([
-                        'currenttier_patched', 'stats', 'damage_made', 'assets', 'team', 'name', 'tag'
+                        'currenttier_patched', 'stats', 'damage_made', 'assets', 'team', 'name', 'tag', 'puuid'
                     ]),
                     'score' => $match['teams'][Str::lower($playerData['team'])]
                 ];
