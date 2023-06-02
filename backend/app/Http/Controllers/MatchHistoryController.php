@@ -44,8 +44,6 @@ class MatchHistoryController extends Controller
             'damagePerRound' => $damagePerRound
         ];
 
-        //dd($response);
-
         return response()->json($response);
     }
 }

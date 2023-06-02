@@ -29,13 +29,12 @@ class MatchController extends Controller
             'numOfRounds' => $numOfRounds
         ];
 
-        //dd($response);
         return($response);
     }
 
     private function mapPlayerData(array $player): array
     {
-        return collect($player)->only(['name', 'tag', 'stats'])->toArray();
+        return collect($player)->only(['name', 'tag', 'puuid', 'assets', 'stats'])->toArray();
     }
 }
 

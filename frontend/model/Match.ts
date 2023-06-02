@@ -8,21 +8,34 @@ interface Stats {
   legshots: number
 }
 
-interface Red {
-  name: string
-  tag: string
-  stats: Stats
+interface Card {
+  small: string
+  large: string
+  wide: string
 }
 
-interface Blue {
+interface Agent {
+  small: string
+  bust: string
+  full: string
+  killfeed: string
+}
+
+interface Assets {
+  card: Card
+  agent: Agent
+}
+
+interface Player {
   name: string
   tag: string
   stats: Stats
+  assets: Assets
 }
 
 interface Match {
-  red: Array<Red>
-  blue: Array<Blue>
+  red: Array<Player>
+  blue: Array<Player>
 }
 
 export type { Match }

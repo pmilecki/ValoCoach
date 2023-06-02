@@ -19,6 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('valo/{server}/{playerName}/{playerTag}/{queue}', [MatchHistoryController::class, '__invoke']);
-
-Route::get('/valoMatch/{matchId}', [MatchController::class, '__invoke']);
+Route::prefix('api/v1')->group(function (): void {
+    Route::prefix('valorant')->group(function (): void {
+        Route::get('match-history/{server}/{playerName}/{playerTag}/{queue}', MatchHistoryController::class);
+        Route::get('match/{matchId}', MatchController::class);
+    });
+});

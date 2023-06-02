@@ -9,9 +9,8 @@
 </script>
 
 <style>
-body{
+body {
   margin: auto;
   background-color: black;
 }
-
 </style>

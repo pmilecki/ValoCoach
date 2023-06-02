@@ -75,15 +75,7 @@ const route = useRoute()
 
 const { data } = await useAsyncData<GetMatchesResponse>('matches', () =>
   $fetch(
-    'http://localhost/valo/' +
-      route.params.region +
-      '/' +
-      route.params.name +
-      '/' +
-      route.params.tag +
-      '/' +
-      route.params.queue +
-      '/'
+    `http://localhost/api/v1/valorant/match-history/${route.params.region}/${route.params.name}/${route.params.tag}/${route.params.queue}`
   )
 )
 

@@ -1,12 +1,11 @@
 <template>
-  <!-- {{ match.matchInfo }} -->
   <div class="flex w-4/5 flex-col text-xl">
     <div>
       <div class="mt-4">
-        <div class="grid grid-cols-8 justify-items-center">
-          <div>
-            Name
-          </div>
+        <div class="grid grid-cols-9 items-center p-2">
+          <div />
+
+          <div />
 
           <div>
             ACS
@@ -38,7 +37,11 @@
         </div>
 
         <div v-for="(playerBlue, no) in match.matchInfo.blue" :key="no">
-          <div class="bg-blue grid grid-cols-8 justify-items-center p-2 text-black">
+          <div class="text-milk mt-2 grid grid-cols-9 items-center bg-[#263747] p-2">
+            <figure>
+              <img :src="playerBlue.assets.agent.small" style="width: 64px; height: 64px;">
+            </figure>
+
             <div>
               {{ playerBlue.name }}#{{ playerBlue.tag }} 
             </div>
@@ -76,10 +79,10 @@
     </div>
 
     <div class="mt-4">
-      <div class="grid grid-cols-8 justify-items-center">
-        <div>
-          Name
-        </div>
+      <div class="grid grid-cols-9 items-center p-2">
+        <div />
+
+        <div />
 
         <div>
           ACS
@@ -111,7 +114,11 @@
       </div>
 
       <div v-for="(playerRed, no) in match.matchInfo.red" :key="no">
-        <div class="bg-red grid grid-cols-8 justify-items-center p-2 text-black">
+        <div class="bg-secondaryRed mt-2 grid grid-cols-9 items-center p-2 text-black">
+          <figure>
+            <img :src="playerRed.assets.agent.small" style="width: 64px; height: 64px;">
+          </figure>
+
           <div>
             {{ playerRed.name }}#{{ playerRed.tag }} 
           </div>
@@ -157,7 +164,7 @@ const route = useRoute()
 // console.log(route.params.id)
 
 const { data } = await useAsyncData<GetMatchResponse>('match', () =>
-  $fetch('http://localhost/valoMatch/' + route.params.matchId)
+  $fetch(`http://localhost/api/v1/valorant/match/${route.params.matchId}`)
 )
 
 const match = computed((): GetMatchResponse => {
