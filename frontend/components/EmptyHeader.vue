@@ -1,6 +1,8 @@
 <template>
   <div class="header flex flex-row items-center justify-between">
-    <img src="/VC.png" href="~/pages/index.vue" class="max-h-16">
+    <nuxt-link :to="`/`">
+      <img src="/VC.png" class="max-h-16">
+    </nuxt-link>
   </div>
 </template>
   

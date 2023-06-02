@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-4/5 flex-col text-xl">
+  <div class="flex min-w-max max-w-screen-2xl flex-col text-xl">
     <div>
       <div class="mt-4">
         <div class="grid grid-cols-9 items-center p-2">
@@ -36,14 +36,23 @@
           </div>
         </div>
 
-        <div v-for="(playerBlue, no) in match.matchInfo.blue" :key="no">
-          <div class="text-milk mt-2 grid grid-cols-9 items-center bg-[#263747] p-2">
-            <figure>
-              <img :src="playerBlue.assets.agent.small" style="width: 64px; height: 64px;">
-            </figure>
+        <!-- :style="{ 'background-image': `url('${playerBlue.assets.card.wide}'
+                  )`}" -->
 
-            <div>
-              {{ playerBlue.name }}#{{ playerBlue.tag }} 
+        <div v-for="(playerBlue, no) in match.matchInfo.blue"
+             :key="no">
+          <div class="text-milk mt-2 grid grid-cols-9 items-center bg-[#263747] p-2">
+            <div class="col-span-2 flex flex-row items-center gap-6"                
+                 style="height: 64px; width: auto; overflow: hidden; position: relative;">
+              <img :src="`${playerBlue.assets.card.wide}`" style="position: absolute; opacity: 0.5;">
+
+              <figure>
+                <img :src="playerBlue.assets.agent.small" style="width: 64px; height: 64px; object-fit: cover; position: relative;">
+              </figure>
+
+              <div style="position: relative;">
+                {{ playerBlue.name }}#{{ playerBlue.tag }}
+              </div>
             </div>
 
             <div>
@@ -113,14 +122,22 @@
         </div>
       </div>
 
-      <div v-for="(playerRed, no) in match.matchInfo.red" :key="no">
-        <div class="bg-secondaryRed mt-2 grid grid-cols-9 items-center p-2 text-black">
-          <figure>
-            <img :src="playerRed.assets.agent.small" style="width: 64px; height: 64px;">
-          </figure>
+      <!-- :style="{ 'background-image': `url('${playerRed.assets.card.wide}'
+                  )`}" -->
 
-          <div>
-            {{ playerRed.name }}#{{ playerRed.tag }} 
+      <div v-for="(playerRed, no) in match.matchInfo.red" :key="no">
+        <div class="bg-secondaryRed mt-2 grid grid-cols-9 items-center p-2">
+          <div class="col-span-2 flex flex-row items-center gap-6"                
+               style="height: 64px; width: auto; overflow: hidden; position: relative;">
+            <img :src="`${playerRed.assets.card.wide}`" style="position: absolute; opacity: 0.5;">
+
+            <figure>
+              <img :src="playerRed.assets.agent.small" style="width: 64px; height: 64px; object-fit: cover; position: relative;">
+            </figure>
+
+            <div style="position: relative;">
+              {{ playerRed.name }}#{{ playerRed.tag }}
+            </div>
           </div>
 
           <div>
