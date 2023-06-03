@@ -27,15 +27,19 @@ interface Assets {
 }
 
 interface Player {
+  puuid: string
   name: string
   tag: string
   stats: Stats
   assets: Assets
+  damage_made: number
+  damage_received: number
 }
 
 interface Match {
   red: Array<Player>
   blue: Array<Player>
+  numOfRounds: number
 }
 
 export type { Match }

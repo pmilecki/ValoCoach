@@ -25,3 +25,7 @@ Route::prefix('api/v1')->group(function (): void {
         Route::get('match/{matchId}', MatchController::class);
     });
 });
+
+Route::get('api/teapot', function (){
+    return response(['status' => '418', 'error' => true, 'error-msg' => "I'm a teapot"], 418);
+});

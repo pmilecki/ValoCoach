@@ -19,7 +19,7 @@
              required="true">
 
       <select id="server" v-model="server" name="server" class="bg-primaryRed rounded-md p-1" required="true">
-        <option value="eu" selected="true">
+        <option value="eu">
           EU
         </option>
 
@@ -31,6 +31,18 @@
       <select id="queueType" v-model="queueType" name="queueType" class="bg-primaryRed rounded-md p-1" required="true">
         <option value="competitive">
           Competetive
+        </option>
+
+        <option value="unrated">
+          Unrated
+        </option>
+
+        <option value="spikerush">
+          Spike Rush
+        </option>
+
+        <option value="escalation">
+          Escalation
         </option>
       </select>
 
@@ -52,7 +64,9 @@ export default {
 
   methods: {
     searchPlayer() {
-      this.$router.push(`/${this.server}/${this.nick}/${this.tag}/${this.queueType}`)
+      if (document.querySelector('form')?.checkValidity()) {
+        this.$router.push(`/${this.server}/${this.nick}/${this.tag}/${this.queueType}`)
+      }
     },
   },
 }
@@ -67,5 +81,9 @@ input {
 select {
   margin-left: 8px;
   text-align: center;
+}
+
+input::placeholder {
+  color: #4d4d4d60;
 }
 </style>

@@ -2,7 +2,7 @@ import { defineNuxtConfig } from 'nuxt/config'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/tailwindcss'],
+  modules: ['@nuxtjs/tailwindcss', 'nuxt-vitest'],
 
   typescript: {
     strict: true,
@@ -22,12 +22,6 @@ export default defineNuxtConfig({
       },
     },
   },
-
-  // css: ['vuetify/lib/styles/main.sass'],
-
-  // build: {
-  //   transpile: ['vuetify'],
-  // },
 
   vite: {
     define: {

@@ -1,14 +1,24 @@
 <template>
+  <div class="text-7xl">
+    <a class="text-[#263747]">{{ match.scoreBlue.rounds_won }}</a>
+
+    - <a class="text-secondaryRed">{{ match.scoreRed.rounds_won }}</a>
+  </div>
+
   <div class="flex min-w-max max-w-screen-2xl flex-col text-xl">
     <div>
       <div class="mt-4">
-        <div class="grid grid-cols-9 items-center p-2">
+        <div class="grid grid-cols-10 items-center p-2">
           <div />
 
           <div />
 
           <div>
             ACS
+          </div>
+
+          <div>
+            ADR
           </div>
 
           <div>
@@ -36,12 +46,9 @@
           </div>
         </div>
 
-        <!-- :style="{ 'background-image': `url('${playerBlue.assets.card.wide}'
-                  )`}" -->
-
         <div v-for="(playerBlue, no) in match.matchInfo.blue"
              :key="no">
-          <div class="text-milk mt-2 grid grid-cols-9 items-center bg-[#263747] p-2">
+          <div class="text-milk mt-2 grid grid-cols-10 items-center bg-[#263747] p-2">
             <div class="col-span-2 flex flex-row items-center gap-6"                
                  style="height: 64px; width: auto; overflow: hidden; position: relative;">
               <img :src="`${playerBlue.assets.card.wide}`" style="position: absolute; opacity: 0.5;">
@@ -57,6 +64,10 @@
 
             <div>
               {{ (playerBlue.stats.score / match.numOfRounds).toFixed(0) }}
+            </div>
+
+            <div>
+              {{ (playerBlue.damage_made / match.numOfRounds).toFixed(0) }}
             </div>
 
             <div>
@@ -88,13 +99,17 @@
     </div>
 
     <div class="mt-4">
-      <div class="grid grid-cols-9 items-center p-2">
+      <div class="grid grid-cols-10 items-center p-2">
         <div />
 
         <div />
 
         <div>
           ACS
+        </div>
+
+        <div>
+          ADR
         </div>
 
         <div>
@@ -122,11 +137,8 @@
         </div>
       </div>
 
-      <!-- :style="{ 'background-image': `url('${playerRed.assets.card.wide}'
-                  )`}" -->
-
       <div v-for="(playerRed, no) in match.matchInfo.red" :key="no">
-        <div class="bg-secondaryRed mt-2 grid grid-cols-9 items-center p-2">
+        <div class="bg-secondaryRed mt-2 grid grid-cols-10 items-center p-2">
           <div class="col-span-2 flex flex-row items-center gap-6"                
                style="height: 64px; width: auto; overflow: hidden; position: relative;">
             <img :src="`${playerRed.assets.card.wide}`" style="position: absolute; opacity: 0.5;">
@@ -142,6 +154,10 @@
 
           <div>
             {{ (playerRed.stats.score / match.numOfRounds).toFixed(0) }}
+          </div>
+
+          <div>
+            {{ (playerRed.damage_made / match.numOfRounds).toFixed(0) }}
           </div>
 
           <div>
@@ -189,6 +205,8 @@ const match = computed((): GetMatchResponse => {
     data.value ?? {
       matchInfo: Object(),
       numOfRounds: 0,
+      scoreRed: Object(),
+      scoreBlue: Object(),
     }
   )
 })

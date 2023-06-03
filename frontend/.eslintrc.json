@@ -3,7 +3,8 @@
     "@nuxtjs/eslint-config-typescript",
     "plugin:prettier-vue/recommended",
     "plugin:tailwindcss/recommended",
-    "plugin:vue/vue3-recommended"
+    "plugin:vue/vue3-recommended",
+    "plugin:vitest"
   ],
   "parser": "vue-eslint-parser",
   "parserOptions": {
