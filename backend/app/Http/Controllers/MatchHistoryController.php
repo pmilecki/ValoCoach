@@ -13,7 +13,6 @@ class MatchHistoryController extends Controller
     public function __invoke(string $server, string $playerName, string $playerTag, string $queue)
     {
         try {
-            //$apiAdress = 'https://api.henrikdev.xyz/valorant/v3/matches/%s/%s/%s?filter=%s';
             $apiAdress = 'https://api.henrikdev.xyz/valorant/v1/lifetime/matches/%s/%s/%s?mode=%s&size=10';
             $apiResponseAdress = sprintf($apiAdress, $server, $playerName, $playerTag, $queue);
             $apiResponse = Http::get($apiResponseAdress);
@@ -21,21 +20,23 @@ class MatchHistoryController extends Controller
             $json = $apiResponse->json();
             $data = collect($json['data']);
 
-//            $numOfRounds = $data->map(fn(array $match) => count($match['rounds']));
             $numOfRounds = $data->map(fn(array $match) => ($match['teams']['red']) + ($match['teams']['blue']));
 
             $statsData = $data
                 ->map(function (array $match) {
+                    $tiers = ['Unrated', 'Unknown 1', 'Unknown 2', 'Iron 1', 'Iron 2', 'Iron 3', 'Bronze 1', 'Bronze 2', 'Bronze 3', 'Silver 1', 'Silver 2', 'Silver 3', 'Gold 1', 'Gold 2', 'Gold 3', 'Platinum 1', 'Platinum 2', 'Platinum 3', 'Diamond 1', 'Diamond 2', 'Diamond 3', 'Ascendant 1', 'Ascendant 2', 'Ascendant 3', 'Immortal 1', 'Immortal 2', 'Immortal 3', 'Radiant'];
                     $playerData = collect($match['stats']);
-                    //$playerData = collect($match['players']['all_players']);
-                        //->first(fn(array $player) => Str::lower($player['name']) === Str::lower($playerName) && Str::lower($player['tag']) === Str::lower($playerTag));
-
                     return [
                         'matchId' => $match['meta']['id'],
                         'playerData' => collect($playerData)->only([
-                            'tier', 'shots', 'damage', 'character', 'team', 'name', 'tag', 'puuid'
+                            'shots', 'damage', 'character', 'team', 'puuid'
                         ]),
-                        'score' => $match['teams'][Str::lower($playerData['team'])]
+                        'stats' => collect($playerData)->only([
+                            'score', 'kills', 'deaths', 'assists'
+                        ]),
+                        'playerRoundsWon' => $match['teams'][Str::lower($playerData['team'])],
+                        'playerRoundsLost' => ($match['teams']['red']) + ($match['teams']['blue']) - $match['teams'][Str::lower($playerData['team'])],
+                        'tier' => $tiers[$playerData['tier']]
                     ];
                 });
 

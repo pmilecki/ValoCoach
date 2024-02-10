@@ -197,7 +197,7 @@ const route = useRoute()
 // console.log(route.params.id)
 
 const { data } = await useAsyncData<GetMatchResponse>('match', () =>
-  $fetch(`http://localhost/api/v1/valorant/match/${route.params.matchId}`)
+  $fetch(`http://localhost/api/v2/valorant/match/${route.params.matchId}`)
 )
 
 const match = computed((): GetMatchResponse => {

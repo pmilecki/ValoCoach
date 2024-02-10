@@ -4,19 +4,19 @@
   </h3>
 
   <div class="w-8/12">
-    <div v-for="(match, index) in matches.statsData" :key="index" class="bg-tertiaryRed hover:bg-primaryRed ml-2 p-2 text-xl transition duration-150 ease-in-out hover:scale-110" :class="{ won: match.score.has_won, lost: !match.score.has_won }">
+    <div v-for="(match, index) in matches.statsData" :key="index" class="bg-tertiaryRed hover:bg-primaryRed ml-2 p-2 text-xl transition duration-150 ease-in-out hover:scale-110" :class="{ won: match.playerRoundsWon > match.playerRoundsLost, lost: match.playerRoundsWon < match.playerRoundsLost }">
       <nuxt-link :to="`/match/${match.playerData.puuid}/${match.matchId}`">
         <div class="flex flex-row flex-wrap items-center justify-between">
           <figure>
-            <img :src="match.playerData.assets.agent.small" style="width: 128px; height: 128px;">
+            <img :src="`https://media.valorant-api.com/agents/${match.playerData.character.id}/displayicon.png`" style="width: 128px; height: 128px;">
           </figure>
 
           <div>
-            {{ match.score.rounds_won }} - {{ match.score.rounds_lost }}
+            {{ match.playerRoundsWon }} - {{ match.playerRoundsLost }}
           </div>
 
           <div>
-            {{ match.playerData.currenttier_patched }}
+            {{ match.tier }}
           </div>
 
           <div class="flex">
@@ -26,7 +26,7 @@
               </div>
 
               <div>
-                {{ match.playerData.stats.kills }}/{{ match.playerData.stats.deaths }}/{{ match.playerData.stats.assists }}
+                {{ match.stats.kills }}/{{ match.stats.deaths }}/{{ match.stats.assists }}
               </div>
             </div>
 
@@ -36,7 +36,7 @@
               </div>
 
               <div>
-                {{ (match.playerData.stats.score / matches.numOfRounds[index]).toFixed(0) }}
+                {{ (match.stats.score / matches.numOfRounds[index]).toFixed(0) }}
               </div>
             </div>
 
@@ -56,7 +56,7 @@
               </div>
 
               <div>
-                {{ ((match.playerData.stats.headshots / (match.playerData.stats.headshots + match.playerData.stats.bodyshots + match.playerData.stats.legshots))*100).toFixed(1) }}
+                {{ ((match.playerData.shots.head / (match.playerData.shots.head + match.playerData.shots.body + match.playerData.shots.leg))*100).toFixed(1) }}
               </div>
             </div>
           </div>
@@ -75,7 +75,7 @@ const route = useRoute()
 
 const { data } = await useAsyncData<GetMatchesResponse>('matches', () =>
   $fetch(
-    `http://localhost/api/v1/valorant/match-history/${route.params.region}/${route.params.name}/${route.params.tag}/${route.params.queue}`
+    `http://localhost/api/v2/valorant/match-history/${route.params.region}/${route.params.name}/${route.params.tag}/${route.params.queue}`
   )
 )
 
@@ -85,6 +85,7 @@ const matches = computed((): GetMatchesResponse => {
       numOfRounds: [],
       statsData: [],
       damagePerRound: [],
+      playerInfo: ""
     }
   )
 })
