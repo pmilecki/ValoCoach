@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MatchController;
+use App\Http\Controllers\TipsGeneratingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MatchHistoryController;
 
@@ -23,6 +24,7 @@ Route::prefix('api/v2')->group(function (): void {
     Route::prefix('valorant')->group(function (): void {
         Route::get('match-history/{server}/{playerName}/{playerTag}/{queue}', MatchHistoryController::class);
         Route::get('match/{matchId}', MatchController::class);
+        Route::get('stats/{matchId}/{puuId}', TipsGeneratingController::class);
     });
 });
 

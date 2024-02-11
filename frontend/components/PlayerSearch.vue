@@ -41,8 +41,8 @@
           Spike Rush
         </option>
 
-        <option value="escalation">
-          Escalation
+        <option value="swiftplay">
+          Swiftplay
         </option>
       </select>
 

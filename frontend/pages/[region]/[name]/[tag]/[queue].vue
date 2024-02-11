@@ -1,6 +1,6 @@
 <template>
   <h3 style="padding-bottom: 16px; font-weight: bold;">
-    {{ route.params.name }}#{{ route.params.tag }}
+    {{ route.params.name }}#{{ route.params.tag }} - {{ route.params.queue }}
   </h3>
 
   <div class="w-8/12">
