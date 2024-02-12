@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PlayerStats;
+use App\Data\PlayerStats;
+use App\Tips\Services\TipsGenerator;
 use Illuminate\Support\Facades\Http;
 
 class TipsGeneratingController extends Controller
@@ -41,6 +42,8 @@ class TipsGeneratingController extends Controller
             , $response['bodyshots'], $response['headshots'], $response['legshots'], $response['damage_made'], $response['damage_received']
             , $response['number_of_rounds'], $response['c_cast'], $response['q_cast'], $response['e_cast'], $response['x_cast']);
 
-        return $player->acs();
+        $tips = new TipsGenerator();
+
+        return $tips->generateTips($player);
     }
 }
