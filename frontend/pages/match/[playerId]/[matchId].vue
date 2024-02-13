@@ -185,12 +185,17 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>  
   </div>
+  <Tips></Tips>
+
+
 </template>
 
 <script setup lang="ts">
+import Tips from '~/components/Tips.vue';
 import { GetMatchResponse } from '~/model/responses/GetMatchResponse'
+
 
 const route = useRoute()
 // When accessing /posts/1, route.params.id will be 1
@@ -199,6 +204,8 @@ const route = useRoute()
 const { data } = await useAsyncData<GetMatchResponse>('match', () =>
   $fetch(`http://localhost/api/v2/valorant/match/${route.params.matchId}`)
 )
+
+
 
 const match = computed((): GetMatchResponse => {
   return (
@@ -210,4 +217,6 @@ const match = computed((): GetMatchResponse => {
     }
   )
 })
+
+
 </script>

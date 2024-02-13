@@ -44,6 +44,6 @@ class TipsGeneratingController extends Controller
 
         $tips = new TipsGenerator();
 
-        return $tips->generateTips($player);
+        return response()->json($tips->generateTips($player));
     }
 }
